@@ -1,5 +1,7 @@
 package com.urbande.springdemo.business.domain;
 
+import com.urbande.springdemo.data.entity.Room;
+
 import java.util.Date;
 
 public class RoomReservation {
@@ -18,55 +20,62 @@ public class RoomReservation {
         return roomId;
     }
 
-    public void setRoomId(long roomId) {
+    public RoomReservation setRoomId(long roomId) {
         this.roomId = roomId;
+        return this;
     }
 
     public long getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(long guestId) {
+    public RoomReservation setGuestId(long guestId) {
         this.guestId = guestId;
+        return this;
     }
 
     public String getRoomName() {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
+    public RoomReservation setRoomName(String roomName) {
         this.roomName = roomName;
+        return this;
     }
 
     public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
+    public RoomReservation setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public RoomReservation setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public RoomReservation setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public RoomReservation setDate(Date date) {
         this.date = date;
+        return this;
     }
 }
