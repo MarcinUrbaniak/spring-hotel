@@ -1,6 +1,8 @@
 package com.urbande.springdemo.business.service;
 
 import com.urbande.springdemo.business.domain.RoomReservation;
+import com.urbande.springdemo.data.entity.Guest;
+import com.urbande.springdemo.data.entity.Reservation;
 import com.urbande.springdemo.data.entity.Room;
 import com.urbande.springdemo.data.repository.GuestRepository;
 import com.urbande.springdemo.data.repository.ReservationRepository;
@@ -8,10 +10,8 @@ import com.urbande.springdemo.data.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 public class ReservationService {
@@ -26,6 +26,7 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
+
     public List<RoomReservation> getRoomReservationsForDate(Date date){
         Iterable<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
@@ -35,8 +36,23 @@ public class ReservationService {
                     .setRoomName(room.getRoomName())
                     .setRoomNumber(room.getRoomNumber());
             roomReservationMap.put(room.getRoomId(), roomReservation);
+
         });
-        return null;
+        Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime()));
+        reservations.forEach(reservation -> {
+            RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
+            roomReservation.setDate(date);
+            Guest guest = this.guestRepository.findById(reservation.getGuestId()).get();
+            roomReservation.setFirstName(guest.getFirstName())
+                    .setLastName(guest.getLastName())
+                    .setGuestId(guest.getGuestId());
+        });
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        for (Long id: roomReservationMap.keySet()
+             ) {
+            roomReservations.add(roomReservationMap.get(id));
+        }
+        return roomReservations;
     }
 
 }
