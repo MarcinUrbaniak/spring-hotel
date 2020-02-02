@@ -26,17 +26,17 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-
     public List<RoomReservation> getRoomReservationsForDate(Date date){
         Iterable<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
+
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getRoomId())
                     .setRoomName(room.getRoomName())
                     .setRoomNumber(room.getRoomNumber());
-            roomReservationMap.put(room.getRoomId(), roomReservation);
 
+            roomReservationMap.put(room.getRoomId(), roomReservation);
         });
         Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime()));
         reservations.forEach(reservation -> {
