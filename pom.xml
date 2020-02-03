@@ -14,9 +14,9 @@
 	<name>learning-spring</name>
 	<description>Demo application for Linkedin</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+<!--	<properties>-->
+<!--		<java.version>11</java.version>-->
+<!--	</properties>-->
 
 	<dependencies>
 		<dependency>
