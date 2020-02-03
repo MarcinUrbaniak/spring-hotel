@@ -52,6 +52,8 @@ public class ReservationService {
              ) {
             roomReservations.add(roomReservationMap.get(id));
         }
+        roomReservations.sort(Comparator.comparing(RoomReservation::getRoomName).thenComparing(RoomReservation::getRoomNumber));
+
         return roomReservations;
     }
 
